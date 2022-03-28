@@ -1,5 +1,5 @@
 <template>
-  <div class="card demo" style="width: 18rem">
+  <div class="card demo">
     <img :src="image" class="card-img-top" alt="Audi E-tron" />
     <div class="card-body">
       <h5 class="card-title">{{ heading }}</h5>
@@ -35,5 +35,6 @@ export default {
 <style scoped>
 .demo {
   margin-top: 20px;
+  width: 18rem;
 }
 </style>
