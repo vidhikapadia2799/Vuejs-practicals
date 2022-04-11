@@ -1,12 +1,39 @@
 <template>
+  <UpdateModalComponent
+    :showModel="showModel"
+    :handleModel="handleModel"
+    :initialValues="initialValues"
+  />
   <div class="card demo" v-for="car in cars" :key="car.id">
-    <CardData :carData="car" @price="carMethod($event)" />
+    <CardData
+      :carImage="car.image"
+      :carName="car.heading"
+      :carDetails="car.details"
+      :carPrice="car.price"
+      :carId="car.id"
+      @price="carMethod($event)"
+      :editCar="editCar"
+    />
   </div>
 </template>
 
 <script>
 import CardData from "./CardData.vue";
+import UpdateModalComponent from "./UpdateModalComponent.vue";
+import carData from "../data/carData.json";
 export default {
+  data() {
+    return {
+      showModel: false,
+      initialValues: {
+        id: 0,
+        heading: "",
+        details: "",
+        image: "",
+        price: null,
+      },
+    };
+  },
   props: {
     cars: Array,
   },
@@ -14,9 +41,28 @@ export default {
     carMethod(price) {
       alert("Price is " + price);
     },
+    editCar(id) {
+      const car = carData.find((car) => car.id === id);
+      this.initialValues = car;
+      this.showModel = true;
+    },
+    handleModel(status) {
+      this.showModel = status;
+      this.resetInitialValues();
+    },
+    resetInitialValues() {
+      this.initialValues = {
+        id: 0,
+        heading: "",
+        details: "",
+        image: "",
+        price: null,
+      };
+    },
   },
   components: {
     CardData,
+    UpdateModalComponent,
   },
 };
 </script>

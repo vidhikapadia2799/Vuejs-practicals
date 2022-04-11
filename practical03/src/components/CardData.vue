@@ -1,43 +1,32 @@
 <template>
   <div>
-    <img
-      :src="carData.image"
-      class="card-img-top a_card_img"
-      alt="Audi E-tron"
-    />
+    <img :src="carImage" class="card-img-top a_card_img" alt="Audi E-tron" />
     <div class="card-body main-card">
-      <h5 class="card-title">{{ carData.heading }}</h5>
+      <h5 class="card-title">{{ carName }}</h5>
       <p class="card-text cardHeight">
-        {{ carData.details }}
+        {{ carDetails }}
       </p>
     </div>
     <div class="buttondesign">
       <button
         class="btn btn-primary btn-sm"
         v-if="
-          carData.price === ''
+          carPrice === null
             ? (this.buttontext = 'Available Soon')
             : (this.buttontext = 'Info')
         "
-        :disabled="carData.price === ''"
-        @click="carPrice(carData.price)"
+        :disabled="carPrice === null"
+        @click="carPrices(carPrice)"
       >
         {{ this.buttontext }}
       </button>
 
       <div>
         <span>
-          <i
-            class="fa-solid fa-pen-to-square edit"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop1"
-          ></i>
+          <i class="fa-solid fa-pen-to-square edit" @click="editCar(carId)"></i>
         </span>
         <span>
-          <i
-            class="fa-solid fa-trash delete"
-            @click="deleteCar(carData.id)"
-          ></i>
+          <i class="fa-solid fa-trash delete" @click="deleteCar(carId)"></i>
         </span>
       </div>
     </div>
@@ -50,6 +39,12 @@ import UpdateModalComponent from "./UpdateModalComponent.vue";
 export default {
   props: {
     carData: Object,
+    editCar: Function,
+    carName: String,
+    carImage: String,
+    carDetails: String,
+    carPrice: Number,
+    carId: Number,
   },
   data() {
     return {
@@ -60,7 +55,7 @@ export default {
     UpdateModalComponent,
   },
   methods: {
-    carPrice(priceparams) {
+    carPrices(priceparams) {
       console.log(priceparams);
       this.$emit("price", priceparams);
     },
@@ -98,5 +93,8 @@ span {
 }
 .delete {
   color: red;
+}
+i {
+  cursor: pointer;
 }
 </style>

@@ -1,70 +1,59 @@
 <template>
-  <div
-    class="modal fade"
-    id="staticBackdrop1"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    tabindex="-1"
-    aria-labelledby="staticBackdropLabel"
-    aria-hidden="true"
-  >
+  <div v-show="showModel" class="model">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">
-            Update Car Details
-          </h5>
+          <h5 class="modal-title">Update Car</h5>
           <button
             type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
+            class="btn btn-danger"
+            data-dismiss="modal"
+            @click="handleModel(false)"
             aria-label="Close"
-          ></button>
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
-          <Form @submit="onSubmit" :validation-schema="schema">
-            <div>
-              <label for="title" class="col-form-label">Car Title</label>
-              <Field id="title" name="title" type="text" class="form-control" />
-              <ErrorMessage name="title" class="text-danger" />
+          <Form
+            @submit="handleSubmit"
+            :validation-schema="schema"
+            :initial-values="initialValues"
+          >
+            <Field type="hidden" name="id" class="form-control" />
+
+            <div class="mb-2">
+              <label class="form-label">Car Name</label>
+              <Field type="text" name="heading" class="form-control" />
+              <ErrorMessage class="text-danger" name="heading" />
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Car Image</label>
+              <Field type="text" name="image" class="form-control" />
+              <ErrorMessage class="text-danger" name="image" />
             </div>
 
-            <div>
-              <label for="description" class="col-form-label"
-                >Car Description</label
+            <div class="mb-2">
+              <label class="form-label">Car Price</label>
+              <Field type="number" name="price" class="form-control" />
+              <ErrorMessage class="text-danger" name="price" />
+            </div>
+            <div class="mb-2">
+              <label for="exampleInputPassword1" class="form-label"
+                >Car Details</label
               >
               <Field
-                id="description"
-                name="description"
-                type="text"
+                as="textarea"
                 class="form-control"
+                name="details"
+                rows="2"
               />
-              <ErrorMessage name="description" class="text-danger" />
+              <ErrorMessage class="text-danger" name="details" />
             </div>
 
-            <div>
-              <label for="price" class="col-form-label">Car Price</label>
-              <Field
-                id="price"
-                name="price"
-                type="number"
-                class="form-control"
-              />
-              <ErrorMessage name="price" class="text-danger" />
-            </div>
-
-            <div>
-              <label for="carimage" class="col-form-label">Car Image</label>
-              <Field
-                id="carimage"
-                name="carimage"
-                type="text"
-                class="form-control"
-              />
-              <ErrorMessage name="carimage" class="text-danger" />
-            </div>
-
-            <button class="btn btn-primary mt-3">Submit</button>
+            <button type="submit" class="btn btn-primary">
+              Update Car Details
+            </button>
           </Form>
         </div>
       </div>
@@ -74,40 +63,57 @@
 
 <script>
 import { Field, Form, ErrorMessage } from "vee-validate";
-import * as Yup from "yup";
+import * as yup from "yup";
 export default {
   name: "UpdateModalComponent",
-  data() {
-    return {};
-  },
   components: {
     Field,
     Form,
     ErrorMessage,
   },
+  data() {},
+  props: {
+    showModel: Boolean,
+    handleModel: Function,
+    initialValues: Object,
+  },
+  methods: {
+    handleSubmit(values, formActions) {
+      console.log(values);
+      alert(JSON.stringify(values));
+      formActions.resetForm();
+      this.handleModel(false);
+    },
+  },
   setup() {
-    const schema = Yup.object().shape({
-      title: Yup.string().required("Car Title is Required!"),
-      description: Yup.string()
-        .required("Car Description is Required!")
+    const schema = yup.object({
+      id: yup.string(),
+      heading: yup.string().required("car name shouldn't be empty"),
+      details: yup
+        .string()
+        .required("car details shouldn't be empty")
         .min(30)
         .max(120),
-      price: Yup.number().required("Car Price is Required!"),
-      carimage: Yup.string()
-        .required("Car Image is Required!")
-        .url("Car Image must be url Format!"),
+      image: yup
+        .string()
+        .required("car image url shouldn't be empty")
+        .url("imge should be in url format"),
+      price: yup
+        .number("price must be number")
+        .required("car price shouldn't be empty"),
     });
-
-    function onSubmit(values) {
-      alert(JSON.stringify(values, null, 2));
-    }
-
     return {
       schema,
-      onSubmit,
     };
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.model {
+  position: absolute;
+  top: 40px;
+  z-index: 1;
+  width: 500px;
+}
+</style>
