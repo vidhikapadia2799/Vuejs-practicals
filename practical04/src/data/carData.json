@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "heading": "Audi E-Tron",
+    "image": "https://www.motortrend.com/uploads/sites/5/2021/06/2022-audi-e-tron-sportback-exterior-05.jpg",
+    "details": "The e-tron GT sets new standards for high-performance, luxury motoring with its leading-edge all-electric drive.",
+    "price": 249700
+  },
+  {
+    "id": 2,
+    "heading": "BMW X5",
+    "image": "https://www.cnet.com/a/img/resize/39bb7641e22814e923d5e40ee28caae5099fad68/2018/06/05/cd8298cd-7082-4347-865d-6bba3d2147ef/2019-bmw-x5-ogi.jpg?auto=webp",
+    "details": "The BMW X5 is designed to let you boss every road with unmatched comfort and in extreme ease. ",
+    "price": null
+  },
+  {
+    "id": 3,
+    "heading": "Ferrari812",
+    "image": "https://stimg.cardekho.com/images/carexteriorimages/630x420/Ferrari/Ferrari-488-GTB/047.jpg",
+    "details": "The Ferrari 812 Superfast is a front mid-engine, rear-wheel-drive grand tourer produced by Italian sports car manufacturer",
+    "price": 900900
+  }
+]
