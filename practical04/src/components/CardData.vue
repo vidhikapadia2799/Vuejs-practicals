@@ -36,11 +36,9 @@
       </div>
     </div>
   </div>
-  <UpdateModalComponent />
 </template>
 
 <script>
-import UpdateModalComponent from "./UpdateModalComponent.vue";
 import axios from "axios";
 
 export default {
@@ -58,9 +56,7 @@ export default {
       buttontext: "Info",
     };
   },
-  components: {
-    UpdateModalComponent,
-  },
+  components: {},
 
   methods: {
     carPrices(priceparams) {

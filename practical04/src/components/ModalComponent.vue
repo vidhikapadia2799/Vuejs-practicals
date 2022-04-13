@@ -67,46 +67,50 @@
 
 <script>
 import { Field, Form, ErrorMessage } from "vee-validate";
-import * as Yup from "yup";
+import * as yup from "yup";
 import axios from "axios";
 export default {
   name: "ModalComponent",
   data() {
-    return {};
+    const schema = yup.object({
+      id: yup.string(),
+      name: yup.string().required("car name shouldn't be empty"),
+      details: yup
+        .string()
+        .required("car details shouldn't be empty")
+        .min(30)
+        .max(120),
+      image: yup
+        .string()
+        .required("car image url shouldn't be empty")
+        .url("imge should be in url format"),
+      price: yup
+        .number("price must be number")
+        .required("car price shouldn't be empty"),
+    });
+    return {
+      schema,
+    };
   },
   components: {
     Field,
     Form,
     ErrorMessage,
   },
-  setup() {
-    const schema = Yup.object().shape({
-      name: Yup.string().required("Car Title is Required!"),
-      details: Yup.string()
-        .required("Car Description is Required!")
-        .min(30)
-        .max(120),
-      price: Yup.number().required("Car Price is Required!"),
-      image: Yup.string()
-        .required("Car Image is Required!")
-        .url("Car Image must be url Format!"),
-    });
-
-    function onSubmit(values) {
-      axios
-        .post("https://testapi.io/api/dartya/resource/cardata", values)
+  methods: {
+    async onSubmit(values) {
+      console.log(values);
+      alert(JSON.stringify(values));
+      await axios
+        .post(`https://testapi.io/api/dartya/resource/cardata`, values)
         .then((response) => {
+          console.log(response);
           if (response.status === 201) {
             this.$parent.getCarData();
           }
         })
-        .catch((e) => console.log(e));
-    }
-
-    return {
-      schema,
-      onSubmit,
-    };
+        .catch((error) => console.log(error));
+    },
   },
 };
 </script>
