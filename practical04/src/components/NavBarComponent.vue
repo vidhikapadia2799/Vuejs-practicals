@@ -12,18 +12,13 @@
           Add Car
         </button>
       </div>
-
-      <ModalComponent />
     </nav>
   </div>
 </template>
 
 <script>
-import ModalComponent from "./ModalComponent.vue";
 export default {
-  components: {
-    ModalComponent,
-  },
+  components: {},
 };
 </script>
 

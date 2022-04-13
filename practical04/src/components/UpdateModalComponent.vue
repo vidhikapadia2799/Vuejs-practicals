@@ -24,8 +24,8 @@
 
             <div class="mb-2">
               <label class="form-label">Car Name</label>
-              <Field type="text" name="heading" class="form-control" />
-              <ErrorMessage class="text-danger" name="heading" />
+              <Field type="text" name="name" class="form-control" />
+              <ErrorMessage class="text-danger" name="name" />
             </div>
             <div class="mb-2">
               <label class="form-label">Car Image</label>
@@ -64,6 +64,8 @@
 <script>
 import { Field, Form, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+import axios from "axios";
+
 export default {
   name: "UpdateModalComponent",
   components: {
@@ -71,24 +73,10 @@ export default {
     Form,
     ErrorMessage,
   },
-
-  props: {
-    showModel: Boolean,
-    handleModel: Function,
-    initialValues: Object,
-  },
-  methods: {
-    handleSubmit(values, formActions) {
-      console.log(values);
-      alert(JSON.stringify(values));
-      formActions.resetForm();
-      this.handleModel(false);
-    },
-  },
-  setup() {
+  data() {
     const schema = yup.object({
       id: yup.string(),
-      heading: yup.string().required("car name shouldn't be empty"),
+      name: yup.string().required("car name shouldn't be empty"),
       details: yup
         .string()
         .required("car details shouldn't be empty")
@@ -106,12 +94,40 @@ export default {
       schema,
     };
   },
+  props: {
+    showModel: Boolean,
+    handleModel: Function,
+    initialValues: Object,
+  },
+  methods: {
+    async handleSubmit(values, formActions) {
+      console.log(values);
+      alert(JSON.stringify(values));
+      await axios
+        .put(`https://testapi.io/api/dartya/resource/cardata/${values.id}`, {
+          name: values.name,
+          details: values.details,
+          image: values.image,
+          price: values.price,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            this.$parent.getCarData();
+          }
+        })
+        .catch((error) => console.log(error));
+      formActions.resetForm();
+      this.handleModel(false);
+    },
+  },
 };
 </script>
 
 <style scoped>
 .model {
   position: absolute;
+  margin-left: 30%;
   top: 40px;
   z-index: 1;
   width: 500px;

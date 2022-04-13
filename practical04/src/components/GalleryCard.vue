@@ -19,12 +19,18 @@
       </div>
     </div>
   </div>
+  <ModalComponent
+    @onadd="getCarData"
+    :showModel="showModel"
+    :handleModel="handleModel"
+  />
 </template>
 
 <script>
 import CardData from "./CardData.vue";
 import UpdateModalComponent from "./UpdateModalComponent.vue";
 import axios from "axios";
+import ModalComponent from "./ModalComponent.vue";
 
 export default {
   data() {
@@ -32,7 +38,7 @@ export default {
       showModel: false,
       initialValues: {
         id: 0,
-        heading: "",
+        name: "",
         details: "",
         image: "",
         price: null,
@@ -68,7 +74,7 @@ export default {
     resetInitialValues() {
       this.initialValues = {
         id: 0,
-        heading: "",
+        name: "",
         details: "",
         image: "",
         price: null,
@@ -78,6 +84,7 @@ export default {
   components: {
     CardData,
     UpdateModalComponent,
+    ModalComponent,
   },
 };
 </script>
