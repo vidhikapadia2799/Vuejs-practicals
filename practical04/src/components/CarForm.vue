@@ -1,9 +1,17 @@
 <template>
+  <div class="d-flex justify-content-end">
+    <button
+      @click="handleModel(true), handleFormHeading('Add Car')"
+      class="btn btn-primary"
+    >
+      Add car
+    </button>
+  </div>
   <div v-show="showModel" class="model">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Update Car</h5>
+          <h5 class="modal-title">{{ formHeading }}</h5>
           <button
             type="button"
             class="btn btn-danger"
@@ -51,9 +59,7 @@
               <ErrorMessage class="text-danger" name="details" />
             </div>
 
-            <button type="submit" class="btn btn-primary">
-              Update Car Details
-            </button>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </Form>
         </div>
       </div>
@@ -64,7 +70,6 @@
 <script>
 import { Field, Form, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import axios from "axios";
 
 export default {
   name: "UpdateModalComponent",
@@ -95,27 +100,17 @@ export default {
     };
   },
   props: {
+    addCar: Function,
     showModel: Boolean,
     handleModel: Function,
     initialValues: Object,
+    handleFormHeading: Function,
+    formHeading: String,
   },
   methods: {
     async handleSubmit(values, formActions) {
-      console.log(values);
-      await axios
-        .put(`https://testapi.io/api/dartya/resource/cardata/${values.id}`, {
-          name: values.name,
-          details: values.details,
-          image: values.image,
-          price: values.price,
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            this.$parent.getCarData();
-          }
-        })
-        .catch((error) => console.log(error));
+      // console.log(values);
+      this.addCar(values);
       formActions.resetForm();
       this.handleModel(false);
     },

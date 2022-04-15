@@ -1,91 +1,100 @@
 <template>
-  <UpdateModalComponent
-    :showModel="showModel"
-    :handleModel="handleModel"
-    :initialValues="initialValues"
-  />
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4" v-for="car in cars" :key="car.id">
-        <CardData
-          :carImage="car.image"
-          :carName="car.name"
-          :carDetails="car.details"
-          :carPrice="car.price"
-          :carId="car.id"
-          :editCar="editCar"
-          :carData="cars"
-        />
+  <div>
+    <div class="card demo">
+      <img :src="carImage" class="card-img-top a_card_img" alt="carimage" />
+      <div class="card-body main-card">
+        <h5 class="card-title">{{ carName }}</h5>
+        <p class="card-text cardHeight">
+          {{ carDetails }}
+        </p>
+      </div>
+      <div class="buttondesign">
+        <button
+          class="btn btn-primary btn-sm"
+          v-if="
+            carPrice === null
+              ? (this.buttontext = 'Available Soon')
+              : (this.buttontext = 'Info')
+          "
+          :disabled="carPrice === null"
+          @click="carPrices(carPrice)"
+        >
+          {{ this.buttontext }}
+        </button>
+
+        <div>
+          <span>
+            <i
+              class="fa-solid fa-pen-to-square edit"
+              @click="editCar(carId), handleFormHeading('Edit Car')"
+            ></i>
+          </span>
+          <span>
+            <i class="fa-solid fa-trash delete" @click="deleteCar(carId)"></i>
+          </span>
+        </div>
       </div>
     </div>
   </div>
-  <ModalComponent
-    @onadd="getCarData"
-    :showModel="showModel"
-    :handleModel="handleModel"
-  />
 </template>
 
 <script>
-import CardData from "./CardData.vue";
-import UpdateModalComponent from "./UpdateModalComponent.vue";
-import axios from "axios";
-import ModalComponent from "./ModalComponent.vue";
-
 export default {
+  props: {
+    editCar: Function,
+    deleteCar: Function,
+    carName: String,
+    carImage: String,
+    carDetails: String,
+    carPrice: String,
+    carId: Number,
+    carData: Array,
+    handleFormHeading: Function,
+  },
   data() {
     return {
-      showModel: false,
-      initialValues: {
-        id: 0,
-        name: "",
-        details: "",
-        image: "",
-        price: null,
-      },
-      cars: [],
+      buttontext: "Info",
     };
   },
+  components: {},
 
-  mounted() {
-    this.getCarData();
-  },
   methods: {
-    editCar(id) {
-      const car = this.cars.find((car) => car.id === id);
-      this.initialValues = car;
-      this.showModel = true;
+    carPrices(priceparams) {
+      alert("Price is " + priceparams);
     },
-    async getCarData() {
-      await axios
-        .get(`https://testapi.io/api/dartya/resource/cardata`)
-        .then((response) => {
-          this.cars = response.data.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    handleModel(status) {
-      this.showModel = status;
-      this.resetInitialValues();
-    },
-    resetInitialValues() {
-      this.initialValues = {
-        id: 0,
-        name: "",
-        details: "",
-        image: "",
-        price: null,
-      };
-    },
-  },
-  components: {
-    CardData,
-    UpdateModalComponent,
-    ModalComponent,
   },
 };
 </script>
 
-<style scoped></style>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.demo {
+  margin-top: 20px;
+  width: 18rem;
+  height: 25rem;
+}
+.a_card_img {
+  width: 100%;
+  height: 160px;
+}
+.cardHeight {
+  height: 8.3rem;
+}
+.buttondesign {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 5px;
+}
+span {
+  padding: 5px;
+}
+.edit {
+  color: green;
+}
+.delete {
+  color: red;
+}
+i {
+  cursor: pointer;
+}
+</style>
