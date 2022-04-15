@@ -65,7 +65,7 @@ export default {
     async deleteCar(idparams) {
       await axios
         .delete(`https://testapi.io/api/dartya/resource/cardata/${idparams}`)
-        .then(async (response) => {
+        .then((response) => {
           if (response.status === 204) {
             this.$parent.getCarData();
           } else {

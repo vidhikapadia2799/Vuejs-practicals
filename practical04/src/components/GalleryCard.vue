@@ -57,15 +57,14 @@ export default {
       this.showModel = true;
     },
     async getCarData() {
-      console.log("Car data called");
-      try {
-        const response = await axios.get(
-          `https://testapi.io/api/dartya/resource/cardata`
-        );
-        this.cars = response.data.data;
-      } catch (e) {
-        this.errors.push(e);
-      }
+      await axios
+        .get(`https://testapi.io/api/dartya/resource/cardata`)
+        .then((response) => {
+          this.cars = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     handleModel(status) {
       this.showModel = status;

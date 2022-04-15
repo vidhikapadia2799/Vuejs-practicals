@@ -102,7 +102,6 @@ export default {
   methods: {
     async handleSubmit(values, formActions) {
       console.log(values);
-      alert(JSON.stringify(values));
       await axios
         .put(`https://testapi.io/api/dartya/resource/cardata/${values.id}`, {
           name: values.name,
