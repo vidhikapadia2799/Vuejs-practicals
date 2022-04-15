@@ -100,16 +100,14 @@ export default {
   methods: {
     async onSubmit(values) {
       console.log(values);
-      alert(JSON.stringify(values));
       await axios
         .post(`https://testapi.io/api/dartya/resource/cardata`, values)
         .then((response) => {
-          console.log(response);
           if (response.status === 201) {
             this.$parent.getCarData();
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => alert(error));
     },
   },
 };
