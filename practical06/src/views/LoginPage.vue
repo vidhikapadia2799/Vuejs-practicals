@@ -1,32 +1,30 @@
 <template>
-  <transition>
-    <div class="v_form">
-      <div class="m_form">
-        <Form @submit="onSubmit" :validation-schema="schema">
-          <h3>Login</h3>
+  <div class="v_form">
+    <div class="m_form">
+      <Form @submit="onSubmit" :validation-schema="schema">
+        <h3>Login</h3>
 
-          <div class="mb-2">
-            <label class="form-label">Email</label>
-            <Field name="email" type="email" class="form-control" />
-            <ErrorMessage name="email" class="text-danger" />
-          </div>
+        <div class="mb-2">
+          <label class="form-label">Email</label>
+          <Field name="email" type="email" class="form-control" />
+          <ErrorMessage name="email" class="text-danger" />
+        </div>
 
-          <div class="mb-2">
-            <label class="form-label">Password</label>
-            <Field name="password" type="password" class="form-control" />
-            <ErrorMessage name="password" class="text-danger" />
-          </div>
+        <div class="mb-2">
+          <label class="form-label">Password</label>
+          <Field name="password" type="password" class="form-control" />
+          <ErrorMessage name="password" class="text-danger" />
+        </div>
 
-          <button class="btn btn-primary">Submit</button>
-        </Form>
-        <router-link to="/register"
-          ><p class="register">
-            Don't have an account? Register now!
-          </p></router-link
-        >
-      </div>
+        <button class="btn btn-primary">Submit</button>
+      </Form>
+      <router-link to="/register"
+        ><p class="register">
+          Don't have an account? Register now!
+        </p></router-link
+      >
     </div>
-  </transition>
+  </div>
 </template>
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";

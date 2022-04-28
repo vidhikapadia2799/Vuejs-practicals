@@ -16,29 +16,20 @@ export default {
 </script>
 
 <style scoped>
-.slide-enter-active,
+.slide-enter-active {
+  transition: all 0.5s ease-in;
+}
 .slide-leave-active {
-  transition: all 0.75s ease-out;
-  transition-timing-function: linear;
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
-.slide-enter-to {
-  position: absolute;
-  right: 0;
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(80px);
+  opacity: 0;
 }
-
-.slide-enter-from {
-  position: absolute;
-  right: -100%;
-}
-
 .slide-leave-to {
   position: absolute;
   left: -100%;
-}
-
-.slide-leave-from {
-  position: absolute;
-  left: 0;
 }
 </style>
