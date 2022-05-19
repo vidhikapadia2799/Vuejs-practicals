@@ -11,13 +11,13 @@ export default {
   CHANGE_LOADER(state, data) {
     state.isLoading = data;
   },
-  ISLOGGEDIN(state, data) {
+  IS_LOGGED_IN(state, data) {
     state.isLogged = data;
   },
-  ISUSERAUTHENTICATED(state, data) {
-    state.isUserAuthenticated = data;
+  IS_USER_AUTHENTICATED(state, data) {
+    state.IS_USER_AUTHENTICATED = data;
   },
-  SETUSERNAME(state, data) {
+  SET_USERNAME(state, data) {
     state.username = data;
   },
 };

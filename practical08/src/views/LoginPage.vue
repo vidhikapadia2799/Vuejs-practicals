@@ -54,7 +54,6 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      // this.$store.dispatch("login", values);
       this.login(values);
     },
     ...mapActions({

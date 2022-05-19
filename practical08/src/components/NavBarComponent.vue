@@ -5,14 +5,14 @@
         <router-link to="/" class="me-auto"
           ><button class="btn text-white btnhome">Home</button></router-link
         >
-        <button class="btn text-white" v-if="isUserAuthenticated">
-          {{ setUserName }}
+        <button class="btn text-white" v-if="IS_USER_AUTHENTICATED">
+          {{ SET_USERNAME }}
         </button>
 
         <button
           class="btn text-white"
           @click="logout"
-          v-if="isUserAuthenticated"
+          v-if="IS_USER_AUTHENTICATED"
         >
           Logout
         </button>
@@ -27,18 +27,14 @@ import cookies from "vue-cookies";
 export default {
   computed: {
     ...mapGetters({
-      isUserAuthenticated: "isUserAuthenticated",
-      setUserName: "setUserName",
+      IS_USER_AUTHENTICATED: "IS_USER_AUTHENTICATED",
+      SET_USERNAME: "SET_USERNAME",
     }),
   },
   methods: {
     logout() {
-      this.$store.commit("ISUSERAUTHENTICATED", false);
-
-      let a = cookies.remove("authUser");
-      console.log(a);
-      // cookies.remove("authUser", "/", "localhost");
-
+      this.$store.commit("IS_USER_AUTHENTICATED", false);
+      cookies.remove("authUser");
       this.$router.push("/login");
     },
   },

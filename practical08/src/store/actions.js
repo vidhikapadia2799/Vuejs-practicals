@@ -7,7 +7,10 @@ export default {
   async fetchCars({ commit }) {
     commit("CHANGE_LOADER", true);
     await axios
-      .get(`https://testapi.io/api/dartya/resource/cardata`)
+      .get(
+        `https://testapi.io/api/dartya/resource/cardata
+      `
+      )
       .then((response) => {
         commit("SET_CARS", response.data.data);
         commit("CHANGE_LOADER", false);
@@ -19,7 +22,11 @@ export default {
 
   async sendData({ dispatch }, data) {
     axios
-      .post("https://testapi.io/api/dartya/resource/cardata", data)
+      .post(
+        `https://testapi.io/api/dartya/resource/cardata
+      `,
+        data
+      )
       .then((response) => {
         if (response.status === 201) {
           dispatch("fetchCars");
@@ -34,7 +41,8 @@ export default {
   async editCar({ dispatch }, payload) {
     axios
       .put(
-        `https://testapi.io/api/dartya/resource/cardata/${payload.id}`,
+        `https://testapi.io/api/dartya/resource/cardata
+      /${payload.id}`,
         payload.data
       )
       .then((response) => {
@@ -50,7 +58,10 @@ export default {
 
   async deleteCar({ dispatch }, id) {
     axios
-      .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`)
+      .delete(
+        `https://testapi.io/api/dartya/resource/cardata
+      /${id}`
+      )
       .then((response) => {
         if (response.status === 204) {
           dispatch("fetchCars");
@@ -63,8 +74,6 @@ export default {
   },
 
   async login({ commit }, values) {
-    console.log(values);
-
     await axios
       .post(`http://localhost:8080/login`, values)
       .then((response) => {
@@ -72,7 +81,6 @@ export default {
           if (cookies.isKey("authUser")) {
             let cookie_value = cookies.get("authUser");
             let decoded = jwt_decode(cookie_value);
-            // console.log(decoded.name);
 
             commit("SETUSERNAME", decoded.name);
             commit("ISLOGGEDIN", true);
@@ -111,7 +119,8 @@ export default {
         alert(error);
       });
   },
-  setUserName({ commit }, name) {
-    commit("SETUSERNAME", name);
+
+  SET_USERNAME({ commit }, name) {
+    commit("SET_USERNAME", name);
   },
 };

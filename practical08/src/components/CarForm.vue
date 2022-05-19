@@ -8,9 +8,6 @@
     <router-link to="/register" v-if="!isAuthenticated"
       ><button class="btn text-white">Register</button></router-link
     >
-    <!-- <button class="btn add_btn text-white" v-if="isAuthenticated">
-      {{ setUserName }}
-    </button> -->
 
     <button
       @click="handleModel(true), handleFormHeading('Add Car')"
@@ -19,13 +16,6 @@
     >
       Add car
     </button>
-    <!-- <button
-      class="btn add_btn text-white"
-      v-if="isAuthenticated"
-      @click="logout"
-    >
-      Logout
-    </button> -->
   </div>
 
   <!-- modal for add and update car -->
@@ -142,8 +132,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isAuthenticated: "isUserAuthenticated",
-      setUserName: "setUserName",
+      isAuthenticated: "IS_USER_AUTHENTICATED",
+      SET_USERNAME: "SET_USERNAME",
     }),
   },
 };

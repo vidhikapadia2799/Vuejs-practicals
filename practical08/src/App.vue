@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <app-header />
-  </div>
+  <app-header />
   <router-view v-slot="{ Component }">
     <transition name="slide">
       <component :is="Component" />

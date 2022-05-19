@@ -4,6 +4,6 @@ export default {
   getCarById: {},
   isLoading: false,
   isLogged: false,
-  isUserAuthenticated: false,
+  IS_USER_AUTHENTICATED: false,
   username: "",
 };

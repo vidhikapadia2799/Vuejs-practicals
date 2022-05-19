@@ -35,8 +35,6 @@
 import GalleryCard from "./GalleryCard.vue";
 import CarForm from "./CarForm.vue";
 import { mapActions, mapGetters } from "vuex";
-// import cookies from "vue-cookies";
-// import jwt_decode from "jwt-decode";
 
 export default {
   data() {
@@ -55,7 +53,6 @@ export default {
 
   mounted() {
     this.$store.dispatch("fetchCars");
-    // this.decodeCookie();
   },
   computed: {
     ...mapGetters({
@@ -64,14 +61,6 @@ export default {
     }),
   },
   methods: {
-    decodeCookie() {
-      // const { cookies } = useCookies();
-      // let cookie_value = cookies.get("authUser");
-      // console.log(cookie_value);
-      // let decoded = jwt_decode(cookie_value);
-      // console.log(decoded.name);
-      // this.setUserName(decoded.name);
-    },
     editCar(id) {
       const car = this.getCarData.find((car) => car.id === id);
       this.initialValues = car;
@@ -85,7 +74,7 @@ export default {
       sendData: "sendData",
       editData: "editCar",
       deleteData: "deleteCar",
-      setUserName: "setUserName",
+      SET_USERNAME: "SET_USERNAME",
     }),
 
     addCar(car) {
@@ -95,7 +84,6 @@ export default {
         this.editData(payload);
         this.resetInitialValues();
       } else {
-        console.log("add car", car);
         this.sendData(car);
       }
     },

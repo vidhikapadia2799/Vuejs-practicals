@@ -5,6 +5,7 @@ import RegisterPage from "../views/RegisterPage.vue";
 import CarDetailsPage from "../views/CarDetailsPage.vue";
 import store from "../store/index";
 import cookies from "vue-cookies";
+import jwt_decode from "jwt-decode";
 
 const routes = [
   {
@@ -36,28 +37,18 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   let isAuthenticated = store.getters.isUserAuthenticated;
-
-//   if (to.meta.requireAuth) {
-//     if (!isAuthenticated) {
-//       return next({ path: "/login" });
-//     }
-//   } else {
-//     if (isAuthenticated) {
-//       return next({ path: "/" });
-//     }
-//   }
-// });
-
 router.beforeEach((to, from, next) => {
   if (cookies.isKey("authUser")) {
-    store.commit("ISUSERAUTHENTICATED", true);
+    store.commit("IS_USER_AUTHENTICATED", true);
+
+    let cookie_value = cookies.get("authUser");
+    let decoded = jwt_decode(cookie_value);
+    store.commit("SET_USERNAME", decoded.name);
   } else {
-    store.commit("ISUSERAUTHENTICATED", false);
+    store.commit("IS_USER_AUTHENTICATED", false);
   }
 
-  let isAuthenticated = store.getters.isUserAuthenticated;
+  let isAuthenticated = store.getters.IS_USER_AUTHENTICATED;
   if ("auth" in to.meta && to.meta.auth && !isAuthenticated) {
     next("/login");
   } else if ("auth" in to.meta && !to.meta.auth && isAuthenticated) {
