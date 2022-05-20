@@ -75,7 +75,7 @@ export default {
 
   async login({ commit }, values) {
     await axios
-      .post(`http://localhost:8080/login`, values)
+      .post(`https://practical08.netlify.app/login`, values)
       .then((response) => {
         if (response.status == 200) {
           if (cookies.isKey("authUser")) {
