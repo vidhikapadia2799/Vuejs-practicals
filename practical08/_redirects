@@ -1,0 +1,3 @@
+  from = "https://practical08.netlify.app/login"
+  to = "http://www.mockbin.org/bin/cfbeadb5-3269-49af-ade2-515996af364c?foo=bar&foo=baz"
+  status = 200
