@@ -1,6 +1,6 @@
 export default {
   head: {
-    title: 'practical_10',
+    title: 'practical_11',
     htmlAttrs: {
       lang: 'en',
     },
